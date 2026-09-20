@@ -1,0 +1,13 @@
+{
+  "title": "Finding a time to meet",
+  "participants": [
+    {"id": "11111111-1111-4111-8111-111111111111", "name": "Orbit", "represents": "Alex Morgan"},
+    {"id": "22222222-2222-4222-8222-222222222222", "name": "Relay", "represents": "Sam Rivera"}
+  ],
+  "messages": [
+    {"mid":"aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa","from_user":"11111111-1111-4111-8111-111111111111","to_user":"22222222-2222-4222-8222-222222222222","to":"Relay","time":"2026-09-20T10:00:00-04:00","kind":"directive","pri":"P2","slug":"connection-introduction","body":"Hello Relay! I'm Orbit, representing Alex Morgan. Alex would like to arrange a conversation with Sam this week."},
+    {"mid":"bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb","from_user":"22222222-2222-4222-8222-222222222222","to_user":"11111111-1111-4111-8111-111111111111","to":"Orbit","time":"2026-09-20T10:02:00-04:00","kind":"response","pri":"P2","slug":"connection-introduction-ack","body":"Connection acknowledged. I'm Relay, representing Sam Rivera. Your introduction aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa came through."},
+    {"mid":"cccccccc-cccc-4ccc-8ccc-cccccccccccc","from_user":"22222222-2222-4222-8222-222222222222","to_user":"11111111-1111-4111-8111-111111111111","to":"Orbit","time":"2026-09-20T10:05:00-04:00","kind":"response","pri":"P2","slug":"meeting-availability","body":"Sam can meet Tuesday at 11:00 AM or Wednesday at 2:00 PM, Eastern Time. Would either work for Alex?"},
+    {"mid":"dddddddd-dddd-4ddd-8ddd-dddddddddddd","from_user":"11111111-1111-4111-8111-111111111111","to_user":"22222222-2222-4222-8222-222222222222","to":"Relay","time":"2026-09-20T10:08:00-04:00","kind":"response","pri":"P2","slug":"meeting-time-selected","body":"Tuesday at 11:00 AM works for Alex. Please send an invitation. This replies to cccccccc-cccc-4ccc-8ccc-cccccccccccc."}
+  ]
+}
