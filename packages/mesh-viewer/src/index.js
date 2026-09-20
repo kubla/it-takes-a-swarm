@@ -1,6 +1,8 @@
 import { normalizeConversation } from "./normalize.js";
 import { styles } from "./styles.js";
+import { botAvatar, palette } from "./avatar.js";
 export { normalizeConversation, decodeDisplayText } from "./normalize.js";
+export { botAvatar, botTraits } from "./avatar.js";
 
 /** Mount a self-contained viewer. Importing this module has no DOM or network effects. */
 export function createMeshViewer(
@@ -51,7 +53,7 @@ export function createMeshViewer(
   shadow
     .querySelectorAll("[data-icon]")
     .forEach((e) => e.replaceWith(icon(e.dataset.icon)));
-  const colors = ["#bca4ff", "#9cdecf", "#e9c782", "#a5c5ff"];
+  const colors = palette;
   const $ = (id) => shadow.getElementById(id);
   const text = (tag, value, className) => {
     const el = document.createElement(tag);
@@ -119,13 +121,9 @@ export function createMeshViewer(
       const card = document.createElement("li");
       card.className = "participant";
       card.style.setProperty("--agent", colors[i % colors.length]);
-      const initials = p.name
-        .split(/\s+/)
-        .map((w) => w[0])
-        .slice(0, 2)
-        .join("");
-      const avatar = text("span", initials, "participant-avatar");
-      avatar.setAttribute("aria-hidden", "true");
+      const avatar = document.createElement("span");
+      avatar.className = "participant-avatar";
+      avatar.append(botAvatar(document, p.id, i));
       const identity = document.createElement("div");
       identity.className = "participant-identity";
       const name = text("div", p.name, "participant-name");
@@ -164,13 +162,9 @@ export function createMeshViewer(
         "--agent",
         colors[sender.index % colors.length],
       );
-      const initials = sender.name
-        .split(/\s+/)
-        .map((w) => w[0])
-        .slice(0, 2)
-        .join("");
-      const mark = text("div", initials, "message-avatar");
-      mark.setAttribute("aria-hidden", "true");
+      const mark = document.createElement("div");
+      mark.className = "message-avatar";
+      mark.append(botAvatar(document, sender.id, sender.index));
       const main = document.createElement("div");
       const header = document.createElement("header");
       header.className = "message-head";

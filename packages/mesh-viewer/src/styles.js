@@ -3,13 +3,14 @@ export const styles = `
 :host {
   display: block;
   color-scheme: dark;
-  --bg: var(--mesh-viewer-background, #15171c);
-  --surface: var(--mesh-viewer-surface, #1d2027);
-  --ink: var(--mesh-viewer-foreground, #e7e9ed);
-  --muted: #9198a6;
-  --line: #30343d;
-  --accent: #b6b4ed;
-  --mono: "IBM Plex Mono", monospace;
+  --bg: var(--mesh-viewer-background, #030712);
+  --surface: var(--mesh-viewer-surface, #111827);
+  --ink: var(--mesh-viewer-foreground, #f3f4f6);
+  --muted: #9ca3af;
+  --line: #1f2937;
+  --accent: var(--mesh-viewer-accent, #6366f1);
+  --gold: #f5b942;
+  --mono: var(--mesh-viewer-mono, "Space Mono"), ui-monospace, "SF Mono", Menlo, monospace;
 }
 * {
   box-sizing: border-box;
@@ -153,7 +154,7 @@ h2 {
   grid-template-columns: 30px minmax(0, 1fr);
   gap: 12px;
   padding: 23px 0;
-  border-bottom: 1px solid #282c33;
+  border-bottom: 1px solid var(--line);
 }
 .message:last-child {
   border-bottom: 0;
@@ -199,7 +200,7 @@ h2 {
   font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
-.message-.viewer {
+.message-body {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   max-width: 78ch;
@@ -207,14 +208,14 @@ h2 {
   line-height: 1.75;
 }
 .message-body a {
-  color: #bbbfe1;
-  text-decoration-color: #626782;
+  color: #a5b4fc;
+  text-decoration-color: #4f46e5;
   text-underline-offset: 3px;
 }
 .uid {
   display: inline;
   padding: 1px 4px;
-  border: 1px solid #393e49;
+  border: 1px solid #374151;
   border-radius: 4px;
   background: var(--surface);
   color: #b5bbca;
@@ -244,7 +245,8 @@ h2 {
   gap: 8px 18px;
   padding: 14px 16px;
   background: var(--surface);
-  border-radius: 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
   margin: 12px 0 0;
 }
 .message-details dd {
@@ -320,7 +322,7 @@ code {
   .message-name {
     font-size: 12px;
   }
-  .message-.viewer {
+  .message-body {
     font-size: 14px;
   }
   .json-document {
@@ -413,6 +415,116 @@ code {
   }
   .representation {
     font-size: 12px;
+  }
+}
+
+/* Sundai Club look: Space Mono labels, gray-950 cards, pixel-bot avatars. */
+#participants-heading,
+.participant-name,
+.agent-label,
+.view-tabs button,
+.message-count,
+.date-heading,
+.message-name,
+.message-route,
+.message-time,
+.message-details summary,
+.message-details dt {
+  font-family: var(--mono);
+}
+#participants-heading,
+.date-heading {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+}
+.participant {
+  padding: 14px;
+  background: rgba(3, 7, 18, 0.6);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  align-items: center;
+}
+.participant-name {
+  font-weight: 700;
+}
+.agent-label {
+  padding: 0 8px;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--agent) 14%, transparent);
+  color: var(--agent);
+  font-size: 10px;
+  line-height: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.participant-avatar,
+.message-avatar {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background:
+    radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--agent) 22%, transparent), transparent 70%),
+    var(--surface);
+  border: 1px solid color-mix(in srgb, var(--agent) 38%, var(--line));
+  border-radius: 8px;
+  flex: none;
+}
+.participant-avatar {
+  width: 52px;
+  height: 52px;
+  margin-top: 0;
+}
+.message-avatar {
+  width: 36px;
+  height: 36px;
+}
+.message {
+  grid-template-columns: 36px minmax(0, 1fr);
+}
+svg.bot {
+  width: 78%;
+  height: 78%;
+  fill: initial;
+  stroke: none;
+  image-rendering: pixelated;
+}
+.participant:hover svg.bot,
+.message:hover svg.bot {
+  animation: bot-bob 0.6s steps(2) 2;
+}
+@keyframes bot-bob {
+  50% {
+    transform: translateY(-6%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .participant:hover svg.bot,
+  .message:hover svg.bot {
+    animation: none;
+  }
+}
+.message-name {
+  font-weight: 700;
+  color: var(--agent);
+}
+.view-tabs button[aria-selected="true"] {
+  border-bottom-color: var(--accent);
+}
+.json-key {
+  color: #a5b4fc;
+}
+@media (max-width: 600px) {
+  .participant-avatar {
+    width: 44px;
+    height: 44px;
+  }
+  .message {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+  .message-avatar {
+    width: 30px;
+    height: 30px;
   }
 }
 `;
