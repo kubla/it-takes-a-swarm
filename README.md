@@ -36,3 +36,7 @@ The checked-in `example.json` is fictional. If `dist/demo.private.json` exists, 
 - `tests/mesh.test.js`: data compatibility and preservation checks
 
 When available, the browser's optional WebMCP surface exposes `display_mesh_conversation({ json })`, using the same integration interface. This only updates the local view; there is no message sending or Fulcra write connection.
+
+## License
+
+[MIT](LICENSE).
