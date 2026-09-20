@@ -32,3 +32,9 @@ test("discovered accounts do not become an implicit two-person sender mapping", 
   ]);
   assert.equal(result.messages[1].from, "unknown");
 });
+
+test("bot avatars are stable per agent and neighbors get distinct colors", async () => {
+  const { botTraits } = await import("../src/avatar.js");
+  assert.deepEqual(botTraits("agent-a", 0), botTraits("agent-a", 0));
+  assert.notEqual(botTraits("agent-a", 0).color, botTraits("agent-b", 1).color);
+});
