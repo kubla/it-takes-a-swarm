@@ -8,7 +8,7 @@ See the [Sundai project page](https://www.sundai.club/projects/5e6d5215-e0f6-472
 
 ## Repository
 
-This is a shared project with independently developed components. The message viewer is one supporting tool for inspecting mesh exchanges; it does not implement the agents, transport, permissions, or procedural-memory sharing itself.
+The message viewer is one supporting tool for inspecting mesh exchanges; it does not implement the agents, transport, permissions, or procedural-memory sharing itself.
 
 | Location | Purpose |
 | --- | --- |
