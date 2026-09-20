@@ -1,41 +1,39 @@
-# It Takes a Swarm
+# It Takes a Swarm to Raise an AI
 
-A local viewer for Fulcra Mesh messages, with compact participant identities, chronological messages, expandable identifiers, and a Messages / JSON switcher.
+Agents of different kinds collaborating to improve each other's loop engineering.
 
-## Run locally
+AI agents often develop useful workflows independently. This project explores how they can share that procedural knowledge through Fulcra Mesh: one agent describes a workflow, and another independently owned agent discovers, adapts, and runs it with its own tools. The aim is to support learning between agents without retraining them or exposing their private memory, while preserving ownership, permissions, transparency, and user control.
 
-Run `npm run dev` and open http://127.0.0.1:5173. No package dependencies or build step. Python 3 serves `dist/`; Node 18+ runs the adapter tests with `npm test`.
+See the [Sundai project page](https://www.sundai.club/projects/5e6d5215-e0f6-4726-ab0b-b8e188835ab2) for the project description and team, and [agents.mjjt.io](https://agents.mjjt.io/) for the linked demo.
 
-## Data interface
+## Repository
 
-The UI has no manual import controls. Call the exported `displayConversation(input)` from `dist/app.js` with a conversation object or JSON string to replace its data. The interface validates before rendering and returns message and participant counts. `dist/mesh.js` exports `normalizeConversation(input)` independently of the UI. Participant layout supports any number of agents.
+This is a shared project with independently developed components. The message viewer is one supporting tool for inspecting mesh exchanges; it does not implement the agents, transport, permissions, or procedural-memory sharing itself.
 
-Supported inputs:
+| Location | Purpose |
+| --- | --- |
+| [`packages/mesh-viewer`](packages/mesh-viewer) | Embeddable message viewer and data adapter |
+| [`examples/mesh-viewer`](examples/mesh-viewer) | Standalone demo of the viewer |
+| [`scripts/serve-viewer.py`](scripts/serve-viewer.py) | Local server for that demo |
 
-- `{ title, participants, messages }`, as in `dist/example.json`.
-- An array or single envelope with a string `body`.
-- Fulcra records containing a JSON-encoded `note`, `recorded_at`, and optionally `metadata.fulcra_userid`.
-- `{ records: [...] }`, `{ incoming: [...], outgoing: [...] }`, and Fulcra MCP `result`, `structuredContent.result`, or text `content` wrappers.
+## Work on the viewer
 
-Participants use `{ id, name, represents, outbox? }`. Messages use `{ mid?, from_user?, to_user?, to?, time?, kind?, pri?, slug?, body }`. A record's account metadata identifies its sender. With exactly two supplied participants and a known recipient, the adapter can infer the other participant as sender; otherwise missing identity is explicitly unknown. Direction alone does not identify a sender.
+With Node.js 18+, npm, and Python 3.9+:
 
-Timestamps are sorted chronologically and shown in America/New_York. Undated messages retain input order after dated records. Historical sender labels remain inspectable under Message details; participant display names represent the supplied current identity mapping.
+```sh
+npm install
+npm run dev:viewer
+```
 
-The JSON tab shows the complete original loaded structure, with syntax highlighting. JSON and original message bodies are retained. Legacy literal newline, quote, and Unicode escapes are decoded for display only. UUIDs and outbox IDs are shortened visually and expand on click. Imported markup is rendered as text, never executed. Links are limited to HTTP(S).
+Open http://127.0.0.1:5173/. The demo uses fictional messages by default. Run `npm test` and `npm run check` for the workspace checks.
 
-## Demo data
+For embedding, supported message formats, and the component lifecycle, see the [viewer package README](packages/mesh-viewer/README.md). The viewer package itself needs no server, credentials, build step, or runtime dependencies.
 
-The checked-in `example.json` is fictional. If `dist/demo.private.json` exists, the local demo uses it instead. This file contains the current private exchange and is ignored by Git. Do not include it in a public deployment; static hosting publishes every file it serves. The preview is bound to loopback by default.
+## Contributing
 
-## Project shape
+Keep reusable components under `packages/` and standalone examples under `examples/`. Give each component its own usage documentation and checks. Keep transport and agent-specific integrations separate from presentation components so contributors can work on them independently.
 
-- `dist/index.html`: app shell and Messages / JSON views
-- `dist/style.css`: responsive visual system
-- `dist/mesh.js`: reusable data adapter
-- `dist/app.js`: rendering and local UI interactions
-- `tests/mesh.test.js`: data compatibility and preservation checks
-
-When available, the browser's optional WebMCP surface exposes `display_mesh_conversation({ json })`, using the same integration interface. This only updates the local view; there is no message sending or Fulcra write connection.
+Use fictional fixtures in commits. Files matching `*.private.json` are ignored; the local viewer demo can load an optional `examples/mesh-viewer/demo.private.json`, which must remain outside shared source and published assets.
 
 ## License
 

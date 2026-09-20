@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <title>Mesh viewer integration checks</title>
+  <style>
+    body {
+      font: 16px system-ui;
+      margin: 30px;
+    }
+    .host-content {
+      color: rgb(255, 0, 0);
+    }
+    .tests {
+      white-space: pre-wrap;
+    }
+    #one,
+    #two {
+      margin-top: 20px;
+    }
+  </style>
+  <h1>Viewer integration checks</h1>
+  <pre id="results" class="tests">Running…</pre>
+  <div id="one"><p class="host-content">Host content</p></div>
+  <div id="two"></div>
+  <script type="module" src="integration.js"></script>
+</html>
